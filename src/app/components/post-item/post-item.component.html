@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card postcard" [ngClass]="{'card-expand': !postItem.commentsHidden, 'bg-light' : editPostId === postItem.id}">
+    <div class="card-body" >
+      <h5 class="card-title">{{ postItem.title }}</h5>
+      <p class="card-text">{{ postItem.body }}</p>
+      <button class="btn btn-danger" (click)="onDelete(postItem.id)">Delete</button>
+      <button class="btn btn-warning" (click)="onEdit(postItem)" *ngIf="!editPostId">Edit</button>
+      <button class="btn btn-warning" (click)="onCancel()" *ngIf="editPostId">Cancel</button>
+      <button class="btn btn-primary" (click)="toggleComments(postItem)">
+        {{ postItem.commentsHidden ? 'Show comments' : 'Hide comments' }}
+      </button>
+    </div>
+    <!--/.card-body-->
+    <div class="card-footer-content" *ngIf="!postItem.commentsHidden">
+      <ul class="list-group">
+        <li class="list-group-item mt-2 mb-2 pt-5 d-flex justify-content-between" *ngFor="let comment of comments">
+          <blockquote>
+            <h6 class="card-title">{{ comment.name }}</h6>
+            <p class="card-text">{{ comment.body }}</p>
+            <cite><a href="mailto:{{ comment.email }}">— {{ comment.email }}</a></cite>
+          </blockquote>
+        </li>
+      </ul>
+    </div>
+    <!-- /.card-footer-content -->
+  </div>
+  <!--/.card-->
+</div>

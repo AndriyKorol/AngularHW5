@@ -1,0 +1,18 @@
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "medium"
+  color = "#fff"
+  type = "ball-triangle-path"
+></ngx-spinner>
+
+<div class="container mt-5">
+  <div class="row">
+    <app-post-form (onAddNewPost)="onAddPost($event)" (save)="onEdit($event)" class="card card-body col-6 mx-auto mb-5"></app-post-form>
+    <!--/.row-->
+  </div>
+  <div class="row" *ngIf="posts">
+    <app-post-item *ngFor="let post of posts" [postItem]="post" (delete)="delete($event)" (editPost)="onEdit($event)"  class="col col-6 mb-1"></app-post-item>
+    <!--/.row-->
+  </div>
+  <!--/.container-->
+</div>

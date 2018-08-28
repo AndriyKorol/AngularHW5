@@ -1,0 +1,73 @@
+<form class="post-form" ngForm="form-group" #form="ngForm"  novalidate >
+    <h5 class="card-title mx-auto">Add post</h5>
+    <div class="form-group">
+      <label
+        for="title"
+        class="title-label"
+      >{{ formData.id ? 'Edit post' : 'Add post' }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        placeholder="title"
+        name="title"
+        [ngClass]="{'is-invalid': (titleInput.errors && form.submitted) || (titleInput.touched && titleInput.errors)}"
+        [(ngModel)]="formData.title"
+        #titleInput="ngModel"
+        minlength="2"
+        required
+        titleInput.value=""
+      >
+      <div class="invalid-feedback" [hidden]="!titleInput.errors?.touched">Field is required</div>
+      <div class="invalid-feedback" [hidden]="!titleInput.errors?.required">Field is required</div>
+      <div class="invalid-feedback" [hidden]="!titleInput.errors?.minlength">Field should has more characters</div>
+    </div>
+    <!--/.form-group-->
+    <div class="form-group">
+      <label
+        for="email"
+        class="email-label"
+      >Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="email"
+        name="email"
+        email
+        [(ngModel)]="formData.email"
+        #emailInput="ngModel"
+        [ngClass]="{'is-invalid': (emailInput.errors && form.submitted) || (emailInput.errors && emailInput.touched)}"
+        minlength="5"
+      >
+      <div class="invalid-feedback" [hidden]="!emailInput.errors?.required">Field is required</div>
+      <div class="invalid-feedback" [hidden]="!emailInput.errors?.touched">Field is required</div>
+      <div class="invalid-feedback" [hidden]="!emailInput.errors?.minlength">Field is required</div>
+      <div class="invalid-feedback" [hidden]="!emailInput.errors?.email ">Email address is invalid</div>
+    </div>
+    <!--/.form-group-->
+    <div class="form-group">
+      <label
+        for="body"
+        class="body-label"
+      >Body</label>
+      <input
+        type="text"
+        id="body"
+        placeholder="body"
+        name="body"
+        class="form-control"
+        [ngClass]="{'is-invalid': (bodyInput.errors && form.submitted) || (bodyInput.touched && bodyInput.errors)}"
+        [(ngModel)]="formData.body"
+        #bodyInput="ngModel"
+        required
+      >
+      <div class="invalid-feedback" [hidden]="!bodyInput.errors?.touched">Field is required</div>
+      <div class="invalid-feedback" [hidden]="!bodyInput.errors?.required">Field is required</div>
+    </div>
+    <!--/.form-group-->
+    <button class="btn btn-primary" [disabled]="form.form.invalid" (click)="addPost()" *ngIf="!formData.id">Add post</button>
+    <button class="btn btn-primary" [disabled]="form.form.invalid" (click)="onSaveEditedPost()" *ngIf="formData.id">Edit post</button>
+    <button class="btn btn-primary" (click)="onCancel()" *ngIf="formData.id">Cancel</button>
+  </form>
+
